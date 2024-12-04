@@ -1,12 +1,15 @@
 {
-  "name": "next-netlify-starter",
+  "name": "next-netlify-starter-cv-project",
   "version": "0.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "docker:build": "docker build -t next-netlify-starter-cv-project -f Dockerfile .",
+    "docker:run": "docker run -p 8080:80 next-netlify-starter-cv-project",
+    "docker:dev": "docker-compose up"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.8.1",
