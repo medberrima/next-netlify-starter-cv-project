@@ -7,9 +7,13 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
-    "docker:build": "docker build -t next-netlify-starter-cv-project -f Dockerfile .",
-    "docker:run": "docker run -p 8080:80 next-netlify-starter-cv-project",
-    "docker:dev": "docker-compose up"
+    "docker:build:dev": "docker build -f Dockerfile.dev -t next-netlify-starter-cv-project:dev .",
+    "docker:build:prod": "docker build -f Dockerfile -t next-netlify-starter-cv-project:prod .",
+    "docker:run:dev": "docker run -p 3000:3000 -v $(pwd):/app next-netlify-starter-cv-project:dev",
+    "docker:run:prod": "docker run -p 3000:3000 next-netlify-starter-cv-project:prod",
+    "docker:compose:dev": "docker-compose up dev",
+    "docker:compose:prod": "docker-compose up prod",
+    "docker:down": "docker-compose down"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.8.1",
