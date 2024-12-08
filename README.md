@@ -1,63 +1,112 @@
-# Next + Netlify Starter
+Bien sûr ! Voici la version mise à jour de votre README avec l'ajout que le projet est un site de votre CV dans la description :
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
+---
 
-This is a [Next.js](https://nextjs.org/) v15 project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and set up to be instantly deployed to [Netlify](https://url.netlify.com/SyTBPVamO)!
+# Mon Projet Dockerisé
 
-This project is a very minimal starter that includes 2 sample components, a global stylesheet, a `netlify.toml` for deployment, and a `jsconfig.json` for setting up absolute imports and aliases. With Netlify, you'll have access to features like Preview Mode, server-side rendering/incremental static regeneration via Netlify Functions, and internationalized routing on deploy automatically.
+## Description
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-netlify-starter&utm_source=github&utm_medium=nextstarter-cs&utm_campaign=devex-cs)
+Ce projet utilise **Docker** et **Docker Compose** pour configurer un environnement de développement et de production pour une application Node.js. Il contient des configurations pour servir une application web en développement avec un serveur Nginx en production.
 
-(If you click this button, it will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify)
+Il s'agit d'un site web présentant mon CV, permettant une gestion dynamique et fluide des informations. Le projet est divisé en plusieurs parties :
+- **Développement** : Utilisation de Node.js pour démarrer un serveur local.
+- **Production** : Construction et exportation de fichiers statiques pour être servis via Nginx.
 
-## Table of Contents:
+## Prérequis
 
-- [Getting Started](#getting-started)
-- [Installation options](#installation-options)
-- [Testing](#testing)
-  - [Included Default Testing](#included-default-testing)
-  - [Removing Renovate](#removing-renovate)
+Avant de commencer, assurez-vous d'avoir installé les outils suivants :
 
-## Getting Started
+- **Docker** : https://www.docker.com/get-started
+- **Docker Compose** : https://docs.docker.com/compose/
 
-First, run the development server:
+## Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Clonez ce dépôt sur votre machine locale :
+   ```bash
+   git clone https://votre-depot.git
+   cd nom-du-dossier
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installez les dépendances et configurez les conteneurs Docker en exécutant la commande suivante :
+   ```bash
+   docker-compose up --build
+   ```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+   Cela va créer et démarrer les services Docker définis dans le fichier `docker-compose.yml`.
 
-### Installation options
+## Structure du Projet
 
-**Option one:** One-click deploy
+### `docker-compose.yml`
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-netlify-starter&utm_source=github&utm_medium=nextstarter-cs&utm_campaign=devex-cs)
+Le fichier de configuration Docker Compose définit deux services :
+- **web** : Un service pour démarrer l'application en mode développement avec Node.js.
+  - Utilise `Dockerfile.dev` pour la construction de l'image Docker.
+  - Expose le port 3000.
+  - Monte le répertoire local dans le conteneur pour permettre l'édition en temps réel.
+  
+### `Dockerfile.dev`
 
-**Option two:** Manual clone
+Ce fichier est utilisé pour la construction de l'image Docker en mode développement. Il installe les dépendances nécessaires, copie les fichiers du projet, et démarre le serveur Node.js en mode développement.
 
-1. Clone this repo: `git clone https://github.com/netlify-templates/next-netlify-starter.git`
-2. Navigate to the directory and run `npm install`
-3. Run `npm run dev`
-4. Make your changes
-5. Connect to [Netlify](https://url.netlify.com/Bk4UicocL) manually (the `netlify.toml` file is the one you'll need to make sure stays intact to make sure the export is done and pointed to the right stuff)
+### `Dockerfile`
 
-## Testing
+Ce fichier est utilisé pour la construction de l'image Docker en mode production. Il passe par deux étapes :
+1. **Build** : L'application est construite et exportée en fichiers statiques.
+2. **Production** : Nginx est utilisé pour servir les fichiers statiques dans un environnement de production.
 
-### Included Default Testing
+### `nginx.conf` (optionnel)
 
-We’ve included some tooling that helps us maintain these templates. This template currently uses:
+Si vous avez besoin de configurer Nginx davantage, vous pouvez ajouter un fichier de configuration `nginx.conf` pour personnaliser les paramètres du serveur web.
 
-- [Renovate](https://www.mend.io/free-developer-tools/renovate/) - to regularly update our dependencies
-- [Cypress](https://www.cypress.io/) - to run tests against how the template runs in the browser
-- [Cypress Netlify Build Plugin](https://github.com/cypress-io/netlify-plugin-cypress) - to run our tests during our build process
+## Lancer en mode développement
 
-If your team is not interested in this tooling, you can remove them with ease!
+1. Démarrez les services en mode développement en exécutant :
+   ```bash
+   docker-compose up --build
+   ```
 
-### Removing Renovate
+2. Accédez à votre application dans le navigateur à l'adresse suivante :
+   ```
+   http://localhost:3000
+   ```
 
-In order to keep our project up-to-date with dependencies we use a tool called [Renovate](https://github.com/marketplace/renovate). If you’re not interested in this tooling, delete the `renovate.json` file and commit that onto your main branch.
+## Lancer en mode production
+
+1. Pour démarrer l'application en mode production (serveur Nginx), vous pouvez exécuter :
+   ```bash
+   docker-compose -f docker-compose.prod.yml up --build
+   ```
+
+   Cela va servir votre application via Nginx sur le port 80.
+
+## Commandes Docker Compose
+
+Voici quelques commandes utiles pour gérer vos services Docker :
+
+- **Démarrer les services en arrière-plan** :
+  ```bash
+  docker-compose up -d
+  ```
+
+- **Arrêter les services** :
+  ```bash
+  docker-compose down
+  ```
+
+- **Rebuild de l'image Docker** :
+  ```bash
+  docker-compose up --build
+  ```
+
+## Contributions
+
+Les contributions sont les bienvenues. Pour toute suggestion ou amélioration, merci d'ouvrir une **issue** ou une **pull request**.
+
+## Auteurs
+
+- [Mohamed Berrima](https://medberrima-cv.netlify.app/)
+- [Portfolio](https://medberrima.github.io/)
+
+--- 
+
+N'hésitez pas à modifier ou à ajouter des détails spécifiques à votre projet si nécessaire !

@@ -1,13 +1,28 @@
 import React from 'react';
 
+const educationData = [
+  {
+    degree: 'Mastère Professionnel en Ingénierie du Logiciel, Ingénierie informatique',
+    institution: 'Higher Institute of Computer Science - Tunisia (ISI)',
+    date: 'Sept. 2023 - Présent'
+  },
+  {
+    degree: 'Technologie Informatique, Développement de systèmes d\'information',
+    institution: 'Institut supérieur des études technologique de Nabeul',
+    date: 'Janv. 2019 - Juil. 2022'
+  }
+];
+
 export default function Education() {
   return (
     <section>
-      <h2>Education</h2>
-      <div>
-        <h3>Bachelor of Science in Computer Science</h3>
-        <p>University of XYZ, 2014 - 2018</p>
-      </div>
+      <h2>Formation</h2>
+      {educationData.map((item, index) => (
+        <div key={index}>
+          <h3>{item.degree}</h3>
+          <p>{item.institution}, {item.date}</p>
+        </div>
+      ))}
     </section>
   );
 }

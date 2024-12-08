@@ -6,7 +6,7 @@ export default function Skills() {
       <h2>Skills</h2>
       <ul>
         <li>HTML, CSS, JavaScript</li>
-        <li>React, Next.js</li>
+        <li>React, Next.js, React Native </li>
         <li>Docker, Git</li>
         <li>Node.js, Express</li>
       </ul>
